@@ -13,6 +13,7 @@ int main (void)
 {
 	int socket_desc, connectionFd, c;
 	struct sockaddr_in servaddr, client;
+	struct tm * timeinfo;
 	time_t currentTime;
 	
 	socket_desc = socket(AF_INET, SOCK_STREAM, 0);
@@ -56,8 +57,13 @@ int main (void)
 	
 	connectionFd = accept(socket_desc, (struct sockaddr *)NULL, NULL);
 	time(&currentTime);
-	printf("Time requested at %s", ctime(&currentTime));
-	send(connectionFd, ctime(&currentTime), 30, 0);
+	timeinfo = localtime(&currentTime);
+	printf("Time requested at %s", asctime(timeinfo));
+	send(connectionFd, asctime(timeinfo), 30, 0);
+	
+
+	printf("Server closing...\n");
+	close(connectionFd);
 	
 	return 0;
 }
