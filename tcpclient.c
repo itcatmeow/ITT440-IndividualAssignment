@@ -1,37 +1,49 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <sys/socket.h>
 #include <arpa/inet.h>
 #include <time.h>
 
 #define MAX_BUFFER 128
-#define DAYTIME_SERVER_PORT 13
+#define PORT 13
 
 int main ()
 {
-        int connectionFd, in, index = 0, limit = MAX_BUFFER;
-        struct sockaddr_in servaddr;
+        int socket_desc, connectionFd;
+        struct sockaddr_in servaddr, client;
         char timebuffer[MAX_BUFFER+1];
 
-        connectionFd = socket(AF_INET, SOCK_STREAM, 0);
+        socket_desc = socket(AF_INET, SOCK_STREAM, 0);
+	if (socket_desc == -1)
+	{
+		printf("Creating socket failed...\n");
+		exit(0);
+	}
+	else
+	{
+		printf("Creating socket success...\n");
+		bzero(&servaddr, sizeof(servaddr));
+	}
 
-        memset(&servaddr, 0, sizeof(servaddr));
         servaddr.sin_family = AF_INET;
-        servaddr.sin_port = htons(DAYTIME_SERVER_PORT);
+        servaddr.sin_port = htons(PORT);
 	servaddr.sin_addr.s_addr = inet_addr("127.0.0.1");
 
 
-        connect(connectionFd, (struct sockaddr *)&servaddr, sizeof(servaddr));
+        if(connect(socket_desc, (struct sockaddr *)&servaddr, sizeof(servaddr)) != 0)
+	{
+		printf("Connection failed...\n");
+		exit(0);
+	}
+	else
+	{
+		printf("Connected to the server...\n");
+	}
 
-        while((in=read(connectionFd, &timebuffer[index], limit))> 0) {
-
-                index += in;
-		limit -= in;
-        }
-	
-	timebuffer[index] = 0;
-	printf("\n%s\n", timebuffer);
+        recv(socket_desc, timebuffer, 29, 0);
+	printf("Time form server: %s\n", timebuffer);
 
 	close(connectionFd);
 
