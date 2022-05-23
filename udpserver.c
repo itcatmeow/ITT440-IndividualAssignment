@@ -11,8 +11,9 @@
 
 int main (void)
 {
-        int socket_desc, connectionFd, len, n;
+        int socket_desc, len, n;
         struct sockaddr_in servaddr, client;
+	struct tm * timeinfo;
 	char timebuffer[MAX_BUFFER+1];
         time_t currentTime;
 
@@ -43,13 +44,16 @@ int main (void)
         {
                 printf("Bind success...\n");
         }
-	
-	len = sizeof(client);
-	
-	n = recvfrom(socket_desc, timebuffer, MAX_BUFFER, MSG_WAITALL, (struct sockaddr *)&client, &len);
-        time(&currentTime);
-        printf("Time requested at %s", ctime(&currentTime));
-        sendto(connectionFd, ctime(&currentTime), 30, 0, 0, 0);
-
-        return 0;
+    
+   	len = sizeof(client);   
+    
+   	n = recvfrom(socket_desc, (char *)timebuffer, MAX_BUFFER, 0, (struct sockaddr *) &client, &len); 
+	time(&currentTime);
+	timeinfo = localtime(&currentTime);
+	timebuffer = 'asctime(timeinfo)';
+    	printf("Time requested at %s", asctime(timeinfo)); 
+    	sendto(socket_desc, timebuffer, strlen(timebuffer), 0, (struct sockaddr *) &client, len); 
+    	printf("Time sent.\n");  
+        
+    	return 0; 
 }

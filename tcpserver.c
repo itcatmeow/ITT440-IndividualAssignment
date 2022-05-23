@@ -11,8 +11,8 @@
 
 int main (void) 
 {
-	int socket_desc, connectionFd, c;
-	struct sockaddr_in servaddr, client;
+	int socket_desc, connectionFd;
+	struct sockaddr_in servaddr;
 	struct tm * timeinfo;
 	time_t currentTime;
 	
@@ -50,7 +50,6 @@ int main (void)
 	else
 	{
 		printf("Listening...\n");
-		c = sizeof(client);
 	}
 
 

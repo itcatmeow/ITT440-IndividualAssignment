@@ -11,8 +11,8 @@
 
 int main ()
 {
-        int socket_desc, connectionFd;
-        struct sockaddr_in servaddr, client;
+        int socket_desc;
+        struct sockaddr_in servaddr;
         char timebuffer[MAX_BUFFER+1];
 
         socket_desc = socket(AF_INET, SOCK_STREAM, 0);
@@ -45,7 +45,7 @@ int main ()
         recv(socket_desc, timebuffer, 29, 0);
 	printf("Time form server: %s\n", timebuffer);
 
-	close(connectionFd);
+	close(socket_desc);
 
 	return(0);
 }
