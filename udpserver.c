@@ -47,12 +47,11 @@ int main (void)
     
    	len = sizeof(client);   
     
-   	n = recvfrom(socket_desc, (char *)timebuffer, MAX_BUFFER, 0, (struct sockaddr *) &client, &len); 
+   	n = recvfrom(socket_desc, timebuffer, 29, 0, (struct sockaddr *) &client, &len); 
 	time(&currentTime);
 	timeinfo = localtime(&currentTime);
-	timebuffer = 'asctime(timeinfo)';
     	printf("Time requested at %s", asctime(timeinfo)); 
-    	sendto(socket_desc, timebuffer, strlen(timebuffer), 0, (struct sockaddr *) &client, len); 
+    	sendto(socket_desc, asctime(timeinfo), 30, 0, (struct sockaddr *) &client, len); 
     	printf("Time sent.\n");  
         
     	return 0; 

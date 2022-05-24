@@ -32,9 +32,9 @@ int main ()
         servaddr.sin_port = htons(PORT);
         servaddr.sin_addr.s_addr = INADDR_ANY;
 
-	sendto(socket_desc, timebuffer, strlen(timebuffer), 0, ( struct sockaddr *) &servaddr,sizeof(servaddr)); 
+	sendto(socket_desc, timebuffer, 29, 0, (struct sockaddr *) &servaddr,sizeof(servaddr)); 
     	printf("Time request sent.\n");   
-    	n = recvfrom(socket_desc, (char *)&timebuffer, sizeof(timebuffer), 0, (struct sockaddr *) &servaddr, &len); 
+    	n = recvfrom(socket_desc, timebuffer, 29, 0, (struct sockaddr *) &servaddr, &len); 
     	printf("Time form server : %s\n", timebuffer); 
     	close(socket_desc); 
     	return 0; 
