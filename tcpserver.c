@@ -19,12 +19,12 @@ int main (void)
 	socket_desc = socket(AF_INET, SOCK_STREAM, 0);
 	if (socket_desc == -1)
 	{
-		printf("Creating socket failed...\n");
+		puts("Creating socket failed...\n");
 		exit(0);
 	}
 	else
 	{
-		printf("Socket successfully created...\n");
+		puts("Socket successfully created...\n");
 		bzero(&servaddr, sizeof(servaddr));
 	}
 
@@ -34,22 +34,22 @@ int main (void)
 
 	if((bind(socket_desc, (struct sockaddr *)&servaddr, sizeof(servaddr))) != 0)
 	{
-		printf("Bind failed...\n");
+		puts("Bind failed...\n");
 		exit(0);
 	}
 	else
 	{
-		printf("Bind success...\n");
+		puts("Bind success...\n");
 	}
 	
 	if ((listen(socket_desc,5)) != 0)
 	{
-		printf("Listening failed...\n");
+		puts("Listening failed...\n");
 		exit(0);
 	}
 	else
 	{
-		printf("Listening...\n");
+		puts("Listening...\n");
 	}
 
 
@@ -61,7 +61,7 @@ int main (void)
 	send(connectionFd, asctime(timeinfo), 30, 0);
 	
 
-	printf("Server closing...\n");
+	puts("Server closing...\n");
 	close(connectionFd);
 	
 	return 0;

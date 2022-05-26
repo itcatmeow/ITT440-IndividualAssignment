@@ -18,12 +18,12 @@ int main ()
         socket_desc = socket(AF_INET, SOCK_DGRAM, 0);
         if (socket_desc == -1)
         {
-                printf("Creating socket failed...\n");
+                puts("Creating socket failed...\n");
                 exit(0);
         }
         else
         {
-                printf("Creating socket success...\n");
+                puts("Creating socket success...\n");
         }
 
 	memset(&servaddr, 0, sizeof(servaddr));
@@ -33,7 +33,7 @@ int main ()
         servaddr.sin_addr.s_addr = INADDR_ANY;
 
 	sendto(socket_desc, timebuffer, 29, 0, (struct sockaddr *) &servaddr,sizeof(servaddr)); 
-    	printf("Time request sent.\n");   
+    	puts("Time request sent.\n");   
     	n = recvfrom(socket_desc, timebuffer, 29, 0, (struct sockaddr *) &servaddr, &len); 
     	printf("Time form server : %s\n", timebuffer); 
     	close(socket_desc); 

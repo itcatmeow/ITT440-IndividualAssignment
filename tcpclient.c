@@ -18,12 +18,12 @@ int main ()
         socket_desc = socket(AF_INET, SOCK_STREAM, 0);
 	if (socket_desc == -1)
 	{
-		printf("Creating socket failed...\n");
+		puts("Creating socket failed...\n");
 		exit(0);
 	}
 	else
 	{
-		printf("Creating socket success...\n");
+		puts("Creating socket success...\n");
 		bzero(&servaddr, sizeof(servaddr));
 	}
 
@@ -34,12 +34,12 @@ int main ()
 
         if(connect(socket_desc, (struct sockaddr *)&servaddr, sizeof(servaddr)) != 0)
 	{
-		printf("Connection failed...\n");
+		puts("Connection failed...\n");
 		exit(0);
 	}
 	else
 	{
-		printf("Connected to the server...\n");
+		puts("Connected to the server...\n");
 	}
 
         recv(socket_desc, timebuffer, 29, 0);

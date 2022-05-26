@@ -20,12 +20,12 @@ int main (void)
         socket_desc = socket(AF_INET, SOCK_DGRAM, 0);
         if (socket_desc == -1)
         {
-                printf("Creating socket failed...\n");
+                puts("Creating socket failed...\n");
                 exit(0);
         }
         else
         {
-                printf("Socket successfully created...\n");
+                puts("Socket successfully created...\n");
         }
 
 	memset(&servaddr, 0, sizeof(servaddr));
@@ -37,12 +37,12 @@ int main (void)
 
         if((bind(socket_desc, (struct sockaddr *)&servaddr, sizeof(servaddr))) != 0)
         {
-                printf("Bind failed...\n");
+                puts("Bind failed...\n");
                 exit(0);
         }
         else
         {
-                printf("Bind success...\n");
+                puts("Bind success...\n");
         }
     
    	len = sizeof(client);   
@@ -52,7 +52,7 @@ int main (void)
 	timeinfo = localtime(&currentTime);
     	printf("Time requested at %s", asctime(timeinfo)); 
     	sendto(socket_desc, asctime(timeinfo), 30, 0, (struct sockaddr *) &client, len); 
-    	printf("Time sent.\n");  
+    	puts("Time sent.\n");  
         
     	return 0; 
 }
