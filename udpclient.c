@@ -11,10 +11,12 @@
 
 int main ()
 {
+	//initialize
         int socket_desc, len, n;
         struct sockaddr_in servaddr, client;
         char timebuffer[MAX_BUFFER+1];
 
+	//create socket
         socket_desc = socket(AF_INET, SOCK_DGRAM, 0);
         if (socket_desc == -1)
         {
@@ -32,6 +34,7 @@ int main ()
         servaddr.sin_port = htons(PORT);
         servaddr.sin_addr.s_addr = INADDR_ANY;
 
+	//send and receive datagram
 	sendto(socket_desc, timebuffer, 29, 0, (struct sockaddr *) &servaddr,sizeof(servaddr)); 
     	puts("Time request sent.\n");   
     	n = recvfrom(socket_desc, timebuffer, 29, 0, (struct sockaddr *) &servaddr, &len); 
