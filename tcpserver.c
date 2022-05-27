@@ -11,11 +11,13 @@
 
 int main (void) 
 {
+	//initialize
 	int socket_desc, connectionFd;
 	struct sockaddr_in servaddr;
 	struct tm * timeinfo;
 	time_t currentTime;
 	
+	//create socket
 	socket_desc = socket(AF_INET, SOCK_STREAM, 0);
 	if (socket_desc == -1)
 	{
@@ -32,6 +34,7 @@ int main (void)
 	servaddr.sin_addr.s_addr = htonl(INADDR_ANY);
 	servaddr.sin_port = htons(PORT);
 
+	//bind
 	if((bind(socket_desc, (struct sockaddr *)&servaddr, sizeof(servaddr))) != 0)
 	{
 		puts("Bind failed...\n");
@@ -42,6 +45,7 @@ int main (void)
 		puts("Bind success...\n");
 	}
 	
+	//listen
 	if ((listen(socket_desc,5)) != 0)
 	{
 		puts("Listening failed...\n");
@@ -53,7 +57,7 @@ int main (void)
 	}
 
 
-	
+	//accept connection
 	connectionFd = accept(socket_desc, (struct sockaddr *)NULL, NULL);
 	time(&currentTime);
 	timeinfo = localtime(&currentTime);
