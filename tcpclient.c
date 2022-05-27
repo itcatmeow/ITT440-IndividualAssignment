@@ -46,7 +46,7 @@ int main ()
 	
 	//display output
         recv(socket_desc, timebuffer, 29, 0);
-	printf("Time form server: %s\n", timebuffer);
+	printf("Time from server: %s\n", timebuffer);
 
 	close(socket_desc);
 
