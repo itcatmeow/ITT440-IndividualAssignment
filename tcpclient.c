@@ -29,7 +29,7 @@ int main ()
 
         servaddr.sin_family = AF_INET;
         servaddr.sin_port = htons(PORT);
-	servaddr.sin_addr.s_addr = inet_addr("127.0.0.1");
+	servaddr.sin_addr.s_addr = inet_addr("192.168.56.103");
 
 
         if(connect(socket_desc, (struct sockaddr *)&servaddr, sizeof(servaddr)) != 0)
