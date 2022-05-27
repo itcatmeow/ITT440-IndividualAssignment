@@ -11,10 +11,12 @@
 
 int main ()
 {
+	//initialize
         int socket_desc;
         struct sockaddr_in servaddr;
         char timebuffer[MAX_BUFFER+1];
 
+	//create socket
         socket_desc = socket(AF_INET, SOCK_STREAM, 0);
 	if (socket_desc == -1)
 	{
@@ -31,7 +33,7 @@ int main ()
         servaddr.sin_port = htons(PORT);
 	servaddr.sin_addr.s_addr = inet_addr("192.168.56.103");
 
-
+	//connect to server
         if(connect(socket_desc, (struct sockaddr *)&servaddr, sizeof(servaddr)) != 0)
 	{
 		puts("Connection failed...\n");
@@ -41,7 +43,8 @@ int main ()
 	{
 		puts("Connected to the server...\n");
 	}
-
+	
+	//display output
         recv(socket_desc, timebuffer, 29, 0);
 	printf("Time form server: %s\n", timebuffer);
 
