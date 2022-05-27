@@ -38,7 +38,7 @@ int main ()
 	sendto(socket_desc, timebuffer, 29, 0, (struct sockaddr *) &servaddr,sizeof(servaddr)); 
     	puts("Time request sent.\n");   
     	n = recvfrom(socket_desc, timebuffer, 29, 0, (struct sockaddr *) &servaddr, &len); 
-    	printf("Time form server : %s\n", timebuffer); 
+    	printf("Time from server : %s\n", timebuffer); 
     	close(socket_desc); 
     	return 0; 
 }
