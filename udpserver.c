@@ -11,12 +11,14 @@
 
 int main (void)
 {
+	//initialize
         int socket_desc, len, n;
         struct sockaddr_in servaddr, client;
 	struct tm * timeinfo;
 	char timebuffer[MAX_BUFFER+1];
         time_t currentTime;
 
+	//create socket
         socket_desc = socket(AF_INET, SOCK_DGRAM, 0);
         if (socket_desc == -1)
         {
@@ -35,6 +37,7 @@ int main (void)
         servaddr.sin_addr.s_addr = INADDR_ANY;
         servaddr.sin_port = htons(PORT);
 
+	//bind
         if((bind(socket_desc, (struct sockaddr *)&servaddr, sizeof(servaddr))) != 0)
         {
                 puts("Bind failed...\n");
@@ -45,6 +48,7 @@ int main (void)
                 puts("Bind success...\n");
         }
     
+	//receive and send datagram
    	len = sizeof(client);   
     
    	n = recvfrom(socket_desc, timebuffer, 29, 0, (struct sockaddr *) &client, &len); 
