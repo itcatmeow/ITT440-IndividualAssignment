@@ -57,6 +57,7 @@ int main (void)
     	printf("Time requested at %s", asctime(timeinfo)); 
     	sendto(socket_desc, asctime(timeinfo), 30, 0, (struct sockaddr *) &client, len); 
     	puts("Time sent.\n");  
+	close(socket_desc);
         
     	return 0; 
 }
